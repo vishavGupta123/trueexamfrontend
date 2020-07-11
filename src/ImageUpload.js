@@ -52,9 +52,6 @@ class ImageUpload extends Component {
     imageFormObj.append("description", this.state.description);
     imageFormObj.append("title", this.state.title);
 
-    this.setState({
-      url: URL.createObjectURL(this.state.multerImage),
-    });
     axios
       .post("http://localhost:8000/api/images/uploadImage", imageFormObj)
       .then((data) => {
@@ -74,32 +71,34 @@ class ImageUpload extends Component {
       <div>
         <div className="process">
           <h4>Process:Uploading Image</h4>
-          <input
-            type="file"
-            className="process_upload-btn"
-            onChange={this.handleFileChange}
-            id="multerImage"
-          />
-          <div>
+          <form>
             <input
-              type="text"
-              placeholder="description of project"
-              id="description"
-              onChange={this.handleChange}
-              required
+              type="file"
+              className="process_upload-btn"
+              onChange={this.handleFileChange}
+              id="multerImage"
             />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Title of the project"
-              id="title"
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+            <div>
+              <input
+                type="text"
+                placeholder="description of project"
+                id="description"
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Title of the project"
+                id="title"
+                onChange={this.handleChange}
+                required
+              />
+            </div>
 
-          <button onClick={this.uploadImage}>Upload</button>
+            <button onClick={this.uploadImage}>Upload</button>
+          </form>
         </div>
         {this.state.imageArray.length > 0
           ? this.state.imageArray.map((image, index) => (
